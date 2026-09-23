@@ -1,5 +1,9 @@
 # open-design-ai-framework
 
+<!-- HMZ PORTFOLIO STANDARD -->
+> Portfolio status: active · Visibility: public · Source of truth: current repository source.
+<!-- END HMZ PORTFOLIO STANDARD -->
+
 > **Design-to-code that actually ships** - AI-native open framework that converts Figma, screenshots, and natural language into production-grade React/TS components - multi-LLM, multi-runtime, multi-vendor.
 
 <p align="center">
