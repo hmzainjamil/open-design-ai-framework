@@ -1,157 +1,57 @@
-# open-design-ai-framework
+# Open Design
 
-> **Design-to-code that actually ships** - AI-native open framework that converts Figma, screenshots, and natural language into production-grade React/TS components - multi-LLM, multi-runtime, multi-vendor.
+Open Design is a local-first design workbench that connects an installed coding-agent CLI or a configured BYOK provider to reusable design skills and design systems. It streams generated artifacts into a preview, then lets the user save them to disk.
 
-<p align="center"><a href="https://github.com/hmzainjamil/open-design-ai-framework">Repository</a> · <a href="https://github.com/hmzainjamil/open-design-ai-framework/commits/main">Commits</a> · <a href="https://github.com/hmzainjamil/open-design-ai-framework/issues">Issues</a></p>
-<p align="center"><img alt="Documentation" src="https://img.shields.io/badge/documentation-deep%20editorial-lightgrey"> <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-active-success"></p>
+> **Status:** Source tree and package scripts inspected. This README does not claim production readiness, model quality, secure isolation, deployment availability, or test results.
 
-<!-- HMZ DEEP README v1 -->
+The root package describes a local-first design product. Its workspace contains a daemon, web interface, desktop shell, agent adapters, skills, design systems, and build tools. The Quickstart describes prototype artifacts and previews; generated output still needs human review and project-specific validation.
 
-## At a glance
+## Components
 
-| Field | Current state |
-|---|---|
-| Repository | open-design-ai-framework |
-| Visibility | Public |
-| Lifecycle | Active |
-| Evidence basis | Current repository documentation and source-visible material |
-
-## Why this exists
-
-**Design-to-code that actually ships** - AI-native open framework that converts Figma, screenshots, and natural language into production-grade React/TS components - multi-LLM, multi-runtime, multi-vendor.
-
-The README documents the design-system scope and separates actual repository capabilities from downstream design-tool behavior and portfolio claims.
-
-## CONCEPTS
-
-| Concept | Location | Description |
+| Area | Location | Role |
 |---|---|---|
-| **CLAUDE.md guide** | `CLAUDE.md` | Agent-facing project guide - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/CLAUDE.md) |
-| **Agent contract** | `AGENTS.md` | Multi-agent operating spec - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/AGENTS.md) |
-| **Quickstart** | `QUICKSTART.md` | 60-second runnable demo - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/QUICKSTART.md) |
-| **Changelog** | `CHANGELOG.md` | Semantic-release-managed history - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/CHANGELOG.md) |
-| **CI pipeline** | `.github/workflows/ci.yml` | Lint, test, type-check matrix - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/.github/workflows/ci.yml) |
-| **Stable release** | `.github/workflows/release-stable.yml` | Production publish workflow - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/.github/workflows/release-stable.yml) |
-| **Beta release** | `.github/workflows/release-beta.yml` | Channel: beta - semantic-release - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/.github/workflows/release-beta.yml) |
-| **Metrics workflow** | `.github/workflows/metrics.yml` | Repo activity + readme stats - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/.github/workflows/metrics.yml) |
-| **i18n contributing** | `CONTRIBUTING.ja-JP.md` | Localized contributor docs - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/CONTRIBUTING.ja-JP.md) |
-| **Multi-locale README** | `README.zh-CN.md` | Native-language README variants - [Source](https://github.com/hmzainjamil/open-design-ai-framework/blob/main/README.zh-CN.md) |
+| Daemon and CLI | apps/daemon/ | Agent discovery, project/session handling, artifact events, and local services |
+| Web interface | apps/web/ | Design workspace and artifact preview |
+| Desktop shell | apps/desktop/ | Desktop runtime integration |
+| Skills | skills/ | Reusable design and workflow instructions |
+| Design systems | design-systems/ | Reusable design-system material |
+| Build and tooling | tools/, scripts/ | Workspace development and packaging |
 
-## HOW IT WORKS
+## Requirements
 
-```
-+---------------------------------------------------------+
-|                       INPUT                             |
-|   Figma URL . PNG/JPG screenshot . plain-text prompt|
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  ORIENT / PARSE                         |
-|   - Validate inputs                                     |
-|   - Load skill / agent / tool definitions               |
-|   - Resolve config + secrets from .env                  |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  PLAN (Claude Sonnet)                   |
-|   - Decompose goal into ordered subtasks                |
-|   - Pick model per task (Sonnet / Haiku / Tier-0)       |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  EXECUTE (parallel)                     |
-|   - Spawn sub-agents / call tools                       |
-|   - Stream tokens, persist artifacts                    |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  VERIFY                                 |
-|   - Lint / typecheck / visual diff / QA agent           |
-|   - On failure -> re-prompt with error context          |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  SHIP                                   |
-|   - Write to disk . commit . PR . upload                |
-+---------------------------------------------------------+
-```
+The root package declares Node.js 24.x and pnpm 10.33.2. The Quickstart lists macOS, Linux, and WSL2 as primary paths. Optional installed coding-agent CLIs or BYOK credentials are needed for generation.
 
-## Install
+## Quick start
 
-```bash
-git clone https://github.com/hmzainjamil/open-design-ai-framework.git
-cd open-design-ai-framework
+From the repository root:
 
-# Per-repo install (try in order):
-bash install.sh 2>/dev/null || \
-npm install 2>/dev/null || \
-bun install 2>/dev/null || \
-pip install -r requirements.txt 2>/dev/null || true
-```
+    corepack enable
+    pnpm install
+    pnpm tools-dev run web
 
-Environment:
+Open the URL printed by the command. To start the daemon, web app, and desktop shell in the background, see [QUICKSTART.md](QUICKSTART.md).
 
-```bash
-cp .env.example .env  # if present
-# fill ANTHROPIC_API_KEY at minimum
-```
+These commands are taken from the checked-in Quickstart; they were not run during this documentation update.
 
-## Usage
+## Data, providers, and safety
 
-```bash
-# Claude Code skill packs:
-/skill-name "your goal"
+- Prompts and project context may be sent to the selected agent CLI or BYOK provider. A local agent CLI does not guarantee local-only inference.
+- The app previews generated artifacts. Review code, links, assets, and scripts before use in another project.
+- The repository describes a sandboxed preview, but this README is not an isolation or security certification.
+- Keep provider credentials and customer design files out of commits, screenshots, test fixtures, and public issues.
 
-# CLI / scripts:
-python scripts/<script>.py --input ./input --output ./output
+## Documentation
 
-# TypeScript projects:
-bun run dev    # or npm run dev
-```
+- [Documentation index](docs/README.md)
+- [Quickstart](QUICKSTART.md)
+- [Architecture](docs/architecture.md)
+- [Modes](docs/modes.md)
+- [Agent adapters](docs/agent-adapters.md)
+- [Skills protocol](docs/skills-protocol.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [License](LICENSE)
 
-### Configuration knobs
+## Validation
 
-| Key | Default | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | - (required) | Claude API key |
-| `MODEL` | `claude-sonnet-4-7` | Default LLM |
-| `MODEL_FALLBACK` | `claude-haiku-4` | Cheaper fallback |
-| `MAX_TOKENS` | `8192` | Per-call ceiling |
-| `TEMPERATURE` | `0.2` | Determinism dial |
-| `LOG_LEVEL` | `info` | debug / info / warn / error |
-| `OUT_DIR` | `./out` | Where artifacts land |
-| `CACHE_DIR` | `.cache` | Prompt cache root |
-| `PARALLELISM` | `4` | Sub-agent concurrency |
-| `RETRY_MAX` | `3` | Per-call retry budget |
-| `TIMEOUT_S` | `120` | Per-call timeout |
-| `DRY_RUN` | `false` | Plan-only, no side effects |
-
-### Case 3 - DTC brand, ad creative testing
-
-- Before: $2K/month UGC creator retainer, 4 ads/month.
-- After: 30+ ad variants/week via Arcads + Claude, A/B-tested.
-- Result: 3x creative velocity, 41% lower CAC after 6 weeks.
-
-## Security
-
-- Never commit API keys. `.env` is in `.gitignore` by default.
-- Use [git-secret](https://git-secret.io/) or 1Password CLI for team secret sharing.
-- Review the QA / safety layer for any tool that writes to disk or runs shells (see `mac_safety.py` style guards).
-- Vulnerability reports: open a private GitHub Security Advisory.
-
-## Limitations
-
-- Visual outcomes depend on the actual source files and connected design tools.
-- Quality claims require inspectable design artifacts or repeatable checks.
-- External tool behavior is not controlled by this repository.
-
-## Related
-
-- [Claude Code](https://docs.claude.com/en/docs/claude-code) - official docs
-- [Anthropic Console](https://console.anthropic.com) - API keys + billing
-- [Crawlee](https://crawlee.dev) - web scraping framework
-- [hmz-claude-code-best-practice](https://github.com/hmzainjamil/hmz-claude-code-best-practice) - sister repo
-
-## Maintainer
-
-[hmzainjamil](https://github.com/hmzainjamil)
+The root package defines test, typecheck, build, and end-to-end scripts. No tests, builds, or deployment checks were run for this README update.

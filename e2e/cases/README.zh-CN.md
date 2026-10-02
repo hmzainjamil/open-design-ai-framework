@@ -14,13 +14,13 @@
 
 ## 当前目录结构
 
-- [index.ts](/Users/mac/open-design/open-design/e2e/cases/index.ts)：用例定义
-- [types.ts](/Users/mac/open-design/open-design/e2e/cases/types.ts)：用例 schema
-- [modules/project-and-generation.md](/Users/mac/open-design/open-design/e2e/cases/modules/project-and-generation.md)：项目创建与生成链路用例
-- [modules/conversations.md](/Users/mac/open-design/open-design/e2e/cases/modules/conversations.md)：会话生命周期用例
-- [modules/files.md](/Users/mac/open-design/open-design/e2e/cases/modules/files.md)：文件上传、mention、预览恢复用例
-- [../reports/README.zh-CN.md](/Users/mac/open-design/open-design/e2e/reports/README.zh-CN.md)：测试结果与报告说明
-- [../specs/app.spec.ts](/Users/mac/open-design/open-design/e2e/specs/app.spec.ts)：执行已自动化用例的 Playwright 入口
+- [index.ts](index.ts)：用例定义
+- [types.ts](types.ts)：用例 schema
+- [modules/project-and-generation.md](modules/project-and-generation.md)：项目创建与生成链路用例
+- [modules/conversations.md](modules/conversations.md)：会话生命周期用例
+- [modules/files.md](modules/files.md)：文件上传、mention、预览恢复用例
+- [../reports/README.zh-CN.md](../reports/README.zh-CN.md)：测试结果与报告说明
+- [../specs/app.spec.ts](../specs/app.spec.ts)：执行已自动化用例的 Playwright 入口
 
 ## Schema 说明
 
@@ -56,11 +56,11 @@
 
 ## 新增用例的方式
 
-1. 在 [index.ts](/Users/mac/open-design/open-design/e2e/cases/index.ts) 里新增一条 `UICase`。
+1. 在 [index.ts](index.ts) 里新增一条 `UICase`。
 2. 先把场景写进对应模块文档，如果只是设计阶段，保持 `automated: false`。
 3. 能复用已有 `flow` 就优先复用。
-4. 只有在确实需要新自动化路径时，才去 [types.ts](/Users/mac/open-design/open-design/e2e/cases/types.ts) 增加新的 `flow` 类型。
-5. 在 [app.spec.ts](/Users/mac/open-design/open-design/e2e/specs/app.spec.ts) 里实现这个流程。
+4. 只有在确实需要新自动化路径时，才去 [types.ts](types.ts) 增加新的 `flow` 类型。
+5. 在 [app.spec.ts](../specs/app.spec.ts) 里实现这个流程。
 6. 用例稳定后，再把 `automated` 改成 `true`。
 
 ## 推荐工作流

@@ -26,8 +26,8 @@
 
 如果你想快速判断“这次到底测了什么、有没有过”，先看：
 
-- [latest.md](/Users/mac/open-design/open-design/e2e/reports/latest.md)
-- [ui-test-report.html](/Users/mac/open-design/open-design/e2e/reports/ui-test-report.html)
+- `latest.md`（当前仓库快照未包含该文件）
+- [ui-test-report.html](ui-test-report.html)
 
 它会包含：
 
